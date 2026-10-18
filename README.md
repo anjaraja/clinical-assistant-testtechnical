@@ -23,6 +23,17 @@
 ```
 
 ## Project Configuration
+
+### Setup directory & Clone Project
+```
+mkdir clinical-assistant
+
+cd clinical-assistant
+
+git clone https://github.com/anjaraja/clinical-assistant-testtechnical.git .
+```
+
+### Setup environment
 ```
 - copy .env.example and rename to .env
 - Login into google account
@@ -33,11 +44,6 @@
 ```
 
 ## Run
-
-### Go to app directory
-```
-cd clinical_assistant
-```
 
 ### Run App using Docker
 ```
