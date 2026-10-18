@@ -1,0 +1,33 @@
+services:
+  # DB service
+  db:
+    image: ankane/pgvector:latest                  # PostgreSQL 16 resmi dengan ekstensi pgvector langsung aktif
+    container_name: clinical_assistant_db
+    restart: always
+    environment:
+      POSTGRES_USER: clinical_assistant_user         # Username database
+      POSTGRES_PASSWORD: clinical_assistant_password123     # Password database
+      POSTGRES_DB: clinical_assistant_db             # Nama database utama
+    ports:
+      - "5432:5432"                                  # Port koneksi database ke laptop
+    volumes:
+      - postgres_medical_data:/var/lib/postgresql/data # Menyimpan data secara aman di harddisk laptop
+
+  # Python Service
+  web:
+    build: .                                     
+    container_name: clinical_assistant_app
+    restart: always
+    ports:
+      - "9999:9999"                              # running port
+    env_file:
+      - .env                                     # Include .env for python app
+    volumes:
+      - .:/app                                   # Bind and syncron python app source
+    environment:
+      - DATABASE_URL=postgresql+psycopg://clinical_assistant_user:clinical_assistant_password123@db:5432/clinical_assistant_db
+    depends_on:
+      - db                                       # configure running app need database
+
+volumes:
+  postgres_medical_data:
