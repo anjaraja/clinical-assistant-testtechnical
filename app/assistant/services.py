@@ -40,6 +40,11 @@ async def review_patient_documents(files: list, db: Session) -> dict:
         logger.info(f"[Assistant Services] First chunk process success: {patient_text_chunk}")
         
         try:
+            total_sop_rows = db.query(SOPTable).count() 
+            if total_sop_rows == 0:
+                logger.warning("[Assistant Services] SOPTable is empty. Stopping process.")
+                raise ValueError("No SOP data available in the database. Please generate SOP vector using SOP service at http://localhost:9999/api/sop/generate-sop")
+
             patient_vector = await get_patient_embedding(patient_text_chunk)
             
             logger.info(f"[Assistant Services] Start query finding relevant sop by vector. Get top 7 row that most relevant")

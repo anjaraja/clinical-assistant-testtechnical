@@ -17,7 +17,8 @@
 > Using postgresql because can easily use pgvector extension to store the SOP vector data.
 
 ### Limitation
-> Current free plan and free model have limitation: 1500 Request per day, 15 Request per minute.
+> Current free plan and free model have limitation: 20 Request per day, 5 Request per minute.
+> Sometimes the model busy and returns 503 | 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.'
 
 
 ## 2. Architecture Diagram (Required)
